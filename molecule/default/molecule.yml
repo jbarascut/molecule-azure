@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: azure
+lint:
+  name: yamllint
+platforms:
+  - name: molecule-nginx-u18
+    resource_group_name: ${AZURE_RESOURCE_GROUP:-molecule}
+    vm_size: Standard_B1s
+    image:
+      offer: UbuntuServer
+      publisher: Canonical
+      sku: 18.04-LTS
+      version: latest
+  - name: molecule-nginx-u16
+    resource_group_name: ${AZURE_RESOURCE_GROUP:-molecule}
+    vm_size: Standard_B1s
+    image:
+      offer: UbuntuServer
+      publisher: Canonical
+      sku: 16.04-LTS
+      version: latest
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
